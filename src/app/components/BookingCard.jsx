@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 
-const BookingCard = ({ facility }) => {
+const BookingCard = ({ facility, session }) => {
   const {
+    _id,
     name,
     available_slots,
     price_per_hour,
@@ -28,9 +29,14 @@ const BookingCard = ({ facility }) => {
     const formData = new FormData(e.target);
 
     const booking = {
-      ...Object.fromEntries(formData.entries()),
+      facility_id: _id,
       facility_name: name,
+      user_email: session?.user?.email,
+      booking_date: formData.get("booking_date"),
+      time_slot: formData.get("time_slot"),
+      hours: Number(formData.get("hours")),
       total_price: totalPrice,
+      status: "pending",
     };
 
     console.log("Form Data:", booking);

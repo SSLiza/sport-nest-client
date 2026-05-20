@@ -1,10 +1,18 @@
 import BookingCard from "@/app/components/BookingCard";
 import { DeleteAlert } from "@/app/components/DeleteAlert";
 import { EditModal } from "@/app/components/EditModal";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Image from "next/image";
 
 const FacilityDetailsPage = async ({ params }) => {
     const { id } = await params;
+
+        // GET SESSION
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
 
     const res = await fetch(
         `http://localhost:5000/facilities/${id}`
@@ -106,7 +114,10 @@ const FacilityDetailsPage = async ({ params }) => {
                     {/* Booking Card */}
                 </div>
             </section>
-            <BookingCard facility={facility} />
+            <BookingCard
+                facility={facility}
+                session={session}
+            />
         </div>
     );
 };
