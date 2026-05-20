@@ -21,7 +21,7 @@ const NavBar = () => {
                 <li><Link href="/all-facilities">All Facilities</Link></li>
                 <li><Link href="/my-bookings">My Bookings</Link></li>
                 <li><Link href="/add-facility">Add Facility</Link></li>
-                <li><Link href="/manage-facilities">Manage My Facility</Link></li>
+                <li><Link href="/manage-facilities">Manage Facilities</Link></li>
             </ul>
 
             <ul className="flex gap-3">
