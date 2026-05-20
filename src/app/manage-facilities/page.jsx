@@ -27,7 +27,6 @@ const ManageFacilitiesPage = async () => {
 
     return (
         <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            abeccdwd
             {facilities.map((f) => (
                 <div key={f._id} className="border p-4 rounded-xl shadow">
                     <Image
