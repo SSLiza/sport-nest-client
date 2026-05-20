@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import LogoutButton from './Logout';
 
 const NavBar = () => {
     return (
@@ -28,6 +29,7 @@ const NavBar = () => {
                 <li><Link href="/profile">Profile</Link></li>
                 <li><Link href="/login">Login</Link></li>
                 <li><Link href="/signup">Signup</Link></li>
+                <li><LogoutButton /></li>
             </ul>
         </nav>
     );
