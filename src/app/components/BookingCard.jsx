@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 
 const BookingCard = ({ facility, session }) => {
@@ -41,12 +42,16 @@ const BookingCard = ({ facility, session }) => {
 
     console.log("Form Data:", booking);
 
+    const {data:tokenData}= await authClient.token()
+    console.log(tokenData)
+
     const res = await fetch(
       "http://localhost:5000/bookings",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${tokenData?.token}`
         },
         body: JSON.stringify(booking),
       }

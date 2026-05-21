@@ -7,8 +7,13 @@ import Image from "next/image";
 
 const FacilityDetailsPage = async ({ params }) => {
     const { id } = await params;
+    const { token } = await auth.api.getToken({
+        headers: await headers()
+    })
 
-        // GET SESSION
+    console.log(token)
+
+    // GET SESSION
     const session = await auth.api.getSession({
         headers: await headers(),
     });
@@ -16,6 +21,11 @@ const FacilityDetailsPage = async ({ params }) => {
 
     const res = await fetch(
         `http://localhost:5000/facilities/${id}`
+        , {
+            headers: {
+                authorization:  `Bearer ${token}`
+            }
+        }
     );
 
     const facility = await res.json();
