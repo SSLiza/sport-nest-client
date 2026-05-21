@@ -26,19 +26,16 @@ const MyBookingCard = ({ bookings }) => {
 
     const data = await res.json();
 
-    if (res.ok) {
-
-      e.target.reset();
-      setHours(1);
-    } else {
-      toast.error(data?.message || "Booking failed!");
+   if (!res.ok) {
+      toast.error(data?.message || "Action failed!");
+      return;
     }
 
-    if (data.deletedCount > 0) {
+   if (data.deletedCount > 0) {
       toast.success("Booking cancelled!");
       router.refresh();
     } else {
-      toast.error(data?.message || "action failed!");
+      toast.error("Booking not found or already cancelled.");
     }
   };
 
