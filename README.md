@@ -4,7 +4,11 @@ SportNest is a sports facility booking platform where users can explore differen
 
 ## Live URL
 
-[SportNest Live Site](https://sportnest.vercel.app)
+SportNest Live Site : https://sport-nest-client-zeta.vercel.app
+
+## Purpose
+
+SportNest was created to simplify the process of finding and booking sports facilities online. The platform allows users to explore different venues, check availability, and reserve time slots easily through a modern and responsive interface. It also provides secure authentication and booking management features to ensure a smooth and convenient user experience.
 
 ## Features
 
@@ -24,5 +28,5 @@ SportNest is a sports facility booking platform where users can explore differen
 | Better Auth | Authentication system with Google OAuth support |
 | Tailwind CSS | Utility-first CSS framework for styling |
 | JWT | Token-based session and API security |
-| SweetAlert2 | Elegant alert and confirmation dialogs |
+| React-toastify | Elegant alert and confirmation |
 | Axios | HTTP client for API requests |

@@ -56,11 +56,6 @@ const FacilityDetailsPage = async ({ params }) => {
     return (
         <div className="flex flex-col md:flex-row justify-between px-5 py-10 mx-auto gap-10">
             <section className="max-w-5xl ">
-
-                <div className="flex  items-center gap-3 justify-end mt-5 mb-3">
-                    <EditModal facility={facility} />
-                    <DeleteAlert facility={facility} />
-                </div>
                 {/* Image */}
                 <div className="relative w-full h-[500px] rounded-3xl overflow-hidden">
                     {imageUrl ? (

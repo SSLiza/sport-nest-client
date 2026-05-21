@@ -2,6 +2,8 @@ import Image from "next/image";
 import HeroSection from "./components/Banner";
 import Link from "next/link";
 import FacilityCard from "./components/FacilityCard";
+import CommunityHighlights from "./components/CommunityHighlights";
+import WhyChooseSportNest from "./components/WhyChooseSportNest";
 
   let facilities = [];
 
@@ -20,7 +22,7 @@ import FacilityCard from "./components/FacilityCard";
   }
 
   // Show only 4 cards
-  const featuredFacilities = facilities.slice(0, 4);
+  const featuredFacilities = facilities.slice(0, 6);
 
 export default function Home() {
   
@@ -40,7 +42,7 @@ export default function Home() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredFacilities.map((facility) => (
             <FacilityCard
               key={facility._id}
@@ -59,6 +61,8 @@ export default function Home() {
           </Link>
         </div>
       </section>
+      <CommunityHighlights/>
+      <WhyChooseSportNest/>
     </div>
   );
 }
