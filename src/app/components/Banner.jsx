@@ -5,13 +5,13 @@ import Link from 'next/link';
 export default function HeroSection() {
   return (
     <section
-      className="relative min-h-[90vh] flex items-center overflow-hidden bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: "url('/hero.png')",
-      }}
-    >
+  className="relative min-h-[90vh] flex items-center overflow-hidden bg-cover bg-center bg-no-repeat"
+  style={{
+    backgroundImage: "url('/hero.png')",
+  }}
+>
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/30 z-0" />
+      <div className="absolute inset-0  z-0" />
 
       {/* Background Pattern */}
       <div className="absolute inset-0 pointer-events-none z-[1]">
@@ -32,11 +32,11 @@ export default function HeroSection() {
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="max-w-3xl">
-          <span className="badge bg-brand-900/50 text-brand-400 border border-brand-800 mb-6 inline-block">
+          <span className=" flex items-center badge bg-transparent text-white border border-base-800 pt-1 inline-block">
             🏆 Bangladesh&apos;s Premier Booking Platform
           </span>
 
-          <h1 className="font-display text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
+          <h1 className="font-display text-5xl md:text-7xl font-bold text-[#03497F] leading-tight mb-6">
             Book Your{' '}
             <span className="text-brand-400 relative inline-block">
               Perfect Court
@@ -68,8 +68,8 @@ export default function HeroSection() {
           {/* Buttons */}
           <div className="flex flex-wrap gap-4">
             <Link
-              href="/facilities"
-              className="btn-primary text-base flex items-center gap-2"
+              href="/all-facilities"
+              className="btn-primary text-white flex items-center gap-2"
             >
               Explore Facilities
 
@@ -90,7 +90,7 @@ export default function HeroSection() {
 
             <Link
               href="/add-facility"
-              className="btn-secondary text-base"
+              className="btn-secondary text-white"
             >
               List Your Facility
             </Link>

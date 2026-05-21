@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# SportNest
 
-## Getting Started
+SportNest is a sports facility booking platform where users can explore different sports venues, check availability, and book facilities online with ease. Built on the MERN stack with Better Auth for secure authentication, it offers a seamless experience for managing sports bookings.
 
-First, run the development server:
+## Live URL
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+[SportNest Live Site](https://sportnest.vercel.app)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **User Authentication** — Secure sign-in with Google login powered by Better Auth
+- **Browse Facilities** — Explore sports venues with full details including images, pricing, and availability
+- **Book Time Slots** — Select and reserve available slots for your preferred sport and venue
+- **Manage Bookings** — View, update, or cancel your bookings from a personal dashboard
+- **Responsive UI** — Clean, modern interface optimized for all screen sizes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## NPM Packages Used
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Package | Purpose |
+|---|---|
+| React | UI component library |
+| Next.js | Full-stack React framework with routing and SSR |
+| MongoDB | NoSQL database for storing users, facilities, and bookings |
+| Better Auth | Authentication system with Google OAuth support |
+| Tailwind CSS | Utility-first CSS framework for styling |
+| JWT | Token-based session and API security |
+| SweetAlert2 | Elegant alert and confirmation dialogs |
+| Axios | HTTP client for API requests |

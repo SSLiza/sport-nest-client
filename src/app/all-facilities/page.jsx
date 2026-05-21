@@ -1,9 +1,18 @@
-import React from 'react';
+export const dynamic = 'force-dynamic'; // ← add this
 import FacilityCard from '../components/FacilityCard';
 
 const AllfacilitiesPage = async () => {
+    let facilities = [];
+
+   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities`);
-    const facilities = await res.json();
+    if (!res.ok) throw new Error(`Failed: ${res.status}`);
+    facilities = await res.json();
+  } catch (err) {
+    console.error(err);
+    // optionally return an error UI here
+  }
+    // const facilities = await res.json();
 
     return (
         <section className="max-w-7xl mx-auto px-5 py-16">
