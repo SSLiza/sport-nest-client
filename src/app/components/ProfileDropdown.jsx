@@ -37,7 +37,7 @@ const ProfileDropdown = ({ session }) => {
                     }
                 </div>
 
-                <span className="text-sm">
+                <span className="hidden sm:inline text-sm"> 
                     {user?.email}
                 </span>
 

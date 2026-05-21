@@ -54,7 +54,7 @@ const FacilityDetailsPage = async ({ params }) => {
     console.log("isArray:", Array.isArray(available_slots));
 
     return (
-        <div className="flex justify-between px-5 py-10  mx-auto gap-10">
+        <div className="flex flex-col md:flex-row justify-between px-5 py-10 mx-auto gap-10">
             <section className="max-w-5xl ">
 
                 <div className="flex  items-center gap-3 justify-end mt-5 mb-3">

@@ -9,10 +9,9 @@ const MyBookingCard = ({ bookings }) => {
 
   const handleCancel = async (id) => {
     const confirmDelete = confirm("Cancel this booking?");
+    if (!confirmDelete) return;
 
     const { data: tokenData } = await authClient.token()
-
-    if (!confirmDelete) return;
 
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${id}`,
