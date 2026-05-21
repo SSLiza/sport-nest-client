@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { Card, Separator } from "@heroui/react";
 import {
   Button,
@@ -26,13 +27,11 @@ const LoginPage = () => {
       password: user.password,
     });
 
-
     if (data) {
-      redirect('/')
+      redirect("/");
     }
 
     if (error) {
-      // toast
       alert("Error");
     }
   };
@@ -47,10 +46,11 @@ const LoginPage = () => {
     <div className="max-w-7xl mx-auto">
       <div className="text-center my-3">
         <h1 className="text-2xl font-bold">Login</h1>
-        <p>Start your adventure with Wanderlust</p>
+        <p>Stay fit with SportNest</p>
       </div>
-      <Card className="border rounded-none">
-        <Form onSubmit={onSubmit} className="flex w-96 flex-col gap-4">
+
+      <Card className="border rounded-none p-6 max-w-md mx-auto">
+        <Form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
           <TextField
             isRequired
             name="email"
@@ -63,9 +63,10 @@ const LoginPage = () => {
             }}
           >
             <Label>Email</Label>
-            <Input placeholder="john@example.com" />
+            <Input placeholder="enter your email" />
             <FieldError />
           </TextField>
+
           <TextField
             isRequired
             minLength={8}
@@ -91,26 +92,47 @@ const LoginPage = () => {
             </Description>
             <FieldError />
           </TextField>
-          <div className="flex justify-center gap-2">
-            <Button className={"rounded-none w-full bg-cyan-500"} type="submit">
+
+          <div className="flex justify-center gap-2 w-full">
+            <Button
+              className="rounded-none w-full bg-[#03497F] text-white"
+              type="submit"
+            >
               Login
             </Button>
           </div>
         </Form>
 
-        <div className="flex justify-center items-center gap-3">
+        <div className="flex justify-center items-center gap-3 my-4">
           <Separator />
-          <div className="whitespace-nowrap"> Or sign up with </div>
+          <div className="whitespace-nowrap text-sm">
+            Or continue with
+          </div>
           <Separator />
         </div>
-        <div>
-          <Button
-            onClick={handleGoogleSignin}
-            variant="outline"
-            className={"w-full rounded-none"}
-          >
-            <FcGoogle /> Sign in with Google
-          </Button>
+
+        <Button
+          onClick={handleGoogleSignin}
+          variant="bordered"
+          className="w-full rounded-none"
+        >
+          <FcGoogle size={20} /> Sign in with Google
+        </Button>
+
+        {/* Signup Button */}
+        <div className="mt-4 text-center">
+          <p className="text-sm">
+            Don&apos;t have an account?
+          </p>
+
+          <Link href="/signup">
+            <Button
+              className="mt-2 w-full rounded-none border border-[#03497F] text-[#03497F]"
+              variant="bordered"
+            >
+              Create an Account
+            </Button>
+          </Link>
         </div>
       </Card>
     </div>

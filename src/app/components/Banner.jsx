@@ -67,34 +67,34 @@ export default function HeroSection() {
 
           {/* Buttons */}
           <div className="flex flex-wrap gap-4">
-            <Link
-              href="/all-facilities"
-              className="btn-primary text-white flex items-center gap-2"
-            >
-              Explore Facilities
+  <Link
+    href="/all-facilities"
+    className="group inline-flex items-center gap-2 rounded-full bg-[#03497F] px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[#d97c3f]"
+  >
+    Explore Facilities
 
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </Link>
+    <svg
+      className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M17 8l4 4m0 0l-4 4m4-4H3"
+      />
+    </svg>
+  </Link>
 
-            <Link
-              href="/add-facility"
-              className="btn-secondary text-white"
-            >
-              List Your Facility
-            </Link>
-          </div>
+  <Link
+    href="/add-facility"
+    className="inline-flex items-center rounded-full border-2 border-[#03497F] bg-white/10 px-6 py-3 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-[#E59057] hover:text-white hover:shadow-lg"
+  >
+    List Your Facility
+  </Link>
+</div>
 
           {/* Stats */}
           <div className="flex flex-wrap items-center gap-8 mt-14">

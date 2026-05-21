@@ -109,7 +109,7 @@ const SignUpPage = () => {
             <FieldError />
           </TextField>
           <div className="flex justify-center gap-2">
-            <Button className={"rounded-none w-full bg-cyan-500"} type="submit">
+            <Button className={"rounded-none w-full bg-[#03497F]"} type="submit">
               Create Account
             </Button>
           </div>

@@ -26,7 +26,7 @@ const FacilityCard = ({ facility }) => {
 
       {/* Image */}
       <div className="relative h-60 w-full">
-        <h2>{facility._id}</h2>
+        {/* <h2>{facility._id}</h2> */}
 
         <Image
           src={imageUrl}
