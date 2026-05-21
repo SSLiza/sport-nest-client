@@ -187,10 +187,8 @@ const AddFacilityPage = () => {
                 <Button
                     type="submit"
                     variant="outline"
-                    // isLoading={isPending}
-                    className="rounded-none w-full bg-cyan-500 text-white"
+                    className="rounded-none w-full bg-[#03497F] text-white"
                 >
-                    {/* {isPending ? "Adding Facility..." : "Add Facility"} */}
                     Add Facility
                 </Button>
             </form>

@@ -3,6 +3,7 @@
 import { TrashBin } from "@gravity-ui/icons";
 import { AlertDialog, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export function DeleteAlert({ facility }) {
   const router = useRouter();
@@ -26,6 +27,7 @@ export function DeleteAlert({ facility }) {
     console.log(data);
 
     if (data.deletedCount > 0) {
+      toast.success("Facility Deleted!");
       router.push("/all-facilities");
       router.refresh();
     }

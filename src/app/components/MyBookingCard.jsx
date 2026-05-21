@@ -1,6 +1,7 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { toast } from "@heroui/react";
 import { useRouter } from "next/navigation";
 
 const MyBookingCard = ({ bookings }) => {
@@ -9,7 +10,7 @@ const MyBookingCard = ({ bookings }) => {
   const handleCancel = async (id) => {
     const confirmDelete = confirm("Cancel this booking?");
 
-    const {data:tokenData} = await authClient.token()
+    const { data: tokenData } = await authClient.token()
 
     if (!confirmDelete) return;
 
@@ -17,7 +18,7 @@ const MyBookingCard = ({ bookings }) => {
       `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${id}`,
       {
         method: "DELETE",
-        headers:{
+        headers: {
           "content-type": "application/json",
           authorization: `Bearer ${tokenData?.token}`
         }
@@ -26,9 +27,19 @@ const MyBookingCard = ({ bookings }) => {
 
     const data = await res.json();
 
+    if (res.ok) {
+
+      e.target.reset();
+      setHours(1);
+    } else {
+      toast.error(data?.message || "Booking failed!");
+    }
+
     if (data.deletedCount > 0) {
-      alert("Booking cancelled");
+      toast.success("Booking cancelled!");
       router.refresh();
+    } else {
+      toast.error(data?.message || "action failed!");
     }
   };
 

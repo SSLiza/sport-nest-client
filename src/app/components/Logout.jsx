@@ -3,13 +3,14 @@
 import { Button } from "@heroui/react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const LogoutButton = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
     await authClient.signOut();
-
+    toast.success("Logout Successful!");
     router.push("/login");
     router.refresh();
   };

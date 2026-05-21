@@ -32,7 +32,7 @@ const NavBar = async () => {
 
             {/* Main Links */}
             {/* Main Links */}
-            <ul className="flex items-center gap-6 font-medium">
+            <ul className="flex items-center gap-2 md:gap-4 lg:gap-6 font-medium">
 
                 <li>
                     <Link href="/">Home</Link>

@@ -2,6 +2,7 @@
 
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const BookingCard = ({ facility, session }) => {
   const {
@@ -15,8 +16,8 @@ const BookingCard = ({ facility, session }) => {
   const slots = Array.isArray(available_slots)
     ? available_slots
     : typeof available_slots === "string"
-    ? available_slots.split(",")
-    : [];
+      ? available_slots.split(",")
+      : [];
 
   // State
   const [hours, setHours] = useState(1);
@@ -42,7 +43,7 @@ const BookingCard = ({ facility, session }) => {
 
     console.log("Form Data:", booking);
 
-    const {data:tokenData}= await authClient.token()
+    const { data: tokenData } = await authClient.token()
     console.log(tokenData)
 
     const res = await fetch(
@@ -58,6 +59,14 @@ const BookingCard = ({ facility, session }) => {
     );
 
     const data = await res.json();
+
+    if (res.ok) {
+      toast.success("Booking confirmed successfully!");
+      e.target.reset();
+      setHours(1);
+    } else {
+      toast.error(data?.message || "Booking failed!");
+    }
 
     console.log("Response from server:", data);
   };
