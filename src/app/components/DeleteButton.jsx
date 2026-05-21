@@ -10,7 +10,7 @@ const DeleteButton = ({ id, email }) => {
     if (!confirmDelete) return;
 
     const res = await fetch(
-      `http://localhost:5000/facilities/${id}?email=${email}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${id}?email=${email}`,
       {
         method: "DELETE",
       }

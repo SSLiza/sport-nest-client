@@ -17,7 +17,7 @@ const ManageFacilitiesPage = async () => {
     }
 
     const res = await fetch(
-        `http://localhost:5000/facilities?email=${session?.user.email}`,
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities?email=${session?.user.email}`,
         {
             cache: "no-store",
         }

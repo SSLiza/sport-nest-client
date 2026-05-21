@@ -1,8 +1,8 @@
 import React from 'react';
 import FacilityCard from '../components/FacilityCard';
 
-const AllDestinationPage = async () => {
-    const res = await fetch('http://localhost:5000/facilities');
+const AllfacilitiesPage = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities`);
     const facilities = await res.json();
 
     return (
@@ -32,4 +32,4 @@ const AllDestinationPage = async () => {
     );
 };
 
-export default AllDestinationPage;
+export default AllfacilitiesPage;

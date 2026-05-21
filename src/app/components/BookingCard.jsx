@@ -46,7 +46,7 @@ const BookingCard = ({ facility, session }) => {
     console.log(tokenData)
 
     const res = await fetch(
-      "http://localhost:5000/bookings",
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings`,
       {
         method: "POST",
         headers: {

@@ -47,7 +47,7 @@ export function EditModal({ facility }) {
         .map((slot) => slot.trim());
 
     const res = await fetch(
-      `http://localhost:5000/facilities/${_id}`,
+      `{}/facilities/${_id}`,
       {
         method: "PATCH",
         headers: {

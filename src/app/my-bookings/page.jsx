@@ -4,6 +4,10 @@ import MyBookingCard from "../components/MyBookingCard";
 
 const MyBookingsPage = async () => {
 
+  const { token } = await auth.api.getToken({
+          headers: await headers()
+      })
+
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -14,9 +18,11 @@ const MyBookingsPage = async () => {
   }
 
 const res = await fetch(
-  `http://localhost:5000/bookings/${session.user.email}`,
+  `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${session.user.email}`,
   {
-    cache: "no-store",
+    headers:{
+      authorization:`bearer ${token}`
+    }
   }
 );
 
