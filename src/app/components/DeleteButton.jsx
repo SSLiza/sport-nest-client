@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const DeleteButton = ({ id, email }) => {
   const router = useRouter();
@@ -10,7 +11,7 @@ const DeleteButton = ({ id, email }) => {
     if (!confirmDelete) return;
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${id}?email=${email}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${id}`,
       {
         method: "DELETE",
       }
@@ -19,7 +20,7 @@ const DeleteButton = ({ id, email }) => {
     const data = await res.json();
 
     if (data.deletedCount > 0) {
-      alert("Deleted successfully");
+      toast.success("Deleted successfully");
       router.refresh();
     }
   };

@@ -4,6 +4,8 @@ import Image from "next/image";
 // import DeleteButton from "./DeleteButton";
 import Link from "next/link";
 import DeleteButton from "../components/DeleteButton";
+import { EditModal } from "../components/EditModal";
+import { DeleteAlert } from "../components/DeleteAlert";
 
 const ManageFacilitiesPage = async () => {
 
@@ -25,6 +27,13 @@ const ManageFacilitiesPage = async () => {
 
     const facilities = await res.json();
 
+    if (!facilities || facilities.length === 0) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <p className="text-gray-500 text-lg">No facilities found.</p>
+            </div>
+        );
+    }
     return (
         <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
             {facilities.map((f) => (
@@ -41,15 +50,12 @@ const ManageFacilitiesPage = async () => {
                     <p>{f.location}</p>
                     <p>${f.price_per_hour}/hr</p>
 
-                    <div className="flex gap-3 mt-3">
-                        <Link
-                            href={`/manage-facilities/edit/${f._id}`}
-                            className="bg-blue-500 text-white px-3 py-1 rounded"
-                        >
-                            Update
-                        </Link>
-
-                        <DeleteButton id={f._id} email={session.user.email} />
+                    <div className="flex  items-center gap-3 justify-end mt-5 mb-3">
+                        <EditModal facility={f} />
+                        <DeleteAlert
+                            facility={f}
+                            email={session?.user?.email}
+                        />
                     </div>
                 </div>
             ))}

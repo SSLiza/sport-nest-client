@@ -12,8 +12,11 @@ import {
 } from "@heroui/react";
 
 import { BiEdit } from "react-icons/bi";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation"; 
 
 export function EditModal({ facility }) {
+  const router = useRouter();
   const {
     _id,
     name,
@@ -47,7 +50,7 @@ export function EditModal({ facility }) {
         .map((slot) => slot.trim());
 
     const res = await fetch(
-      `{}/facilities/${_id}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${_id}`,
       {
         method: "PATCH",
         headers: {
@@ -60,185 +63,86 @@ export function EditModal({ facility }) {
 
     const data = await res.json();
 
-    console.log(data);
-  };
+if (res.ok) {
+  toast.success("Facility updated successfully!");
+  router.refresh();
+} else {
+  toast.error(data?.message || "Update failed!");
+}
+    };
 
   return (
     <Modal>
-
-      {/* Button */}
-      <Button
-        variant="outline"
-        className={"rounded-none"}
-      >
-        <BiEdit /> Edit
-      </Button>
+      <Modal.Trigger>
+        <Button variant="outline" className="rounded-none">
+          <BiEdit /> Edit
+        </Button>
+      </Modal.Trigger>
 
       <Modal.Backdrop>
         <Modal.Container placement="auto">
-
           <Modal.Dialog className="sm:max-w-xl">
-
             <Modal.CloseTrigger />
-
             <Modal.Header>
-              <Modal.Heading>
-                Edit Facility
-              </Modal.Heading>
+              <Modal.Heading>Edit Facility</Modal.Heading>
             </Modal.Header>
-
             <Modal.Body className="p-6">
-
               <Surface variant="default">
+                <form onSubmit={onSubmit} className="p-6 space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                <form
-                  onSubmit={onSubmit}
-                  className="p-10 space-y-8"
-                >
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                    {/* Facility Name */}
                     <div className="md:col-span-2">
-                      <TextField
-                        defaultValue={name}
-                        name="name"
-                        isRequired
-                      >
+                      <TextField defaultValue={name} name="name" isRequired>
                         <Label>Facility Name</Label>
-
-                        <Input
-                          placeholder="Elite Football Arena"
-                          className="rounded-2xl"
-                        />
-
+                        <Input placeholder="Elite Football Arena" className="rounded-2xl" />
                         <FieldError />
                       </TextField>
                     </div>
 
-                    {/* Facility Type */}
-                    <TextField
-                      defaultValue={facility_type}
-                      name="facility_type"
-                      isRequired
-                    >
+                    <TextField defaultValue={facility_type} name="facility_type" isRequired>
                       <Label>Facility Type</Label>
-
-                      <Input
-                        placeholder="Football"
-                        className="rounded-2xl"
-                      />
-
+                      <Input placeholder="Football" className="rounded-2xl" />
                       <FieldError />
                     </TextField>
 
-                    {/* Location */}
-                    <TextField
-                      defaultValue={location}
-                      name="location"
-                      isRequired
-                    >
+                    <TextField defaultValue={location} name="location" isRequired>
                       <Label>Location</Label>
-
-                      <Input
-                        placeholder="Sylhet, Bangladesh"
-                        className="rounded-2xl"
-                      />
-
+                      <Input placeholder="Sylhet, Bangladesh" className="rounded-2xl" />
                       <FieldError />
                     </TextField>
 
-                    {/* Price */}
-                    <TextField
-                      defaultValue={price_per_hour}
-                      name="price_per_hour"
-                      type="number"
-                      isRequired
-                    >
-                      <Label>
-                        Price Per Hour
-                      </Label>
-
-                      <Input
-                        type="number"
-                        placeholder="50"
-                        className="rounded-2xl"
-                      />
-
+                    <TextField defaultValue={price_per_hour} name="price_per_hour" type="number" isRequired>
+                      <Label>Price Per Hour</Label>
+                      <Input type="number" placeholder="50" className="rounded-2xl" />
                       <FieldError />
                     </TextField>
 
-                    {/* Capacity */}
-                    <TextField
-                      defaultValue={capacity}
-                      name="capacity"
-                      type="number"
-                      isRequired
-                    >
+                    <TextField defaultValue={capacity} name="capacity" type="number" isRequired>
                       <Label>Capacity</Label>
-
-                      <Input
-                        type="number"
-                        placeholder="20"
-                        className="rounded-2xl"
-                      />
-
+                      <Input type="number" placeholder="20" className="rounded-2xl" />
                       <FieldError />
                     </TextField>
 
-                    {/* Available Slots */}
                     <div className="md:col-span-2">
-                      <TextField
-                        defaultValue={slots}
-                        name="available_slots"
-                        isRequired
-                      >
-                        <Label>
-                          Available Slots
-                        </Label>
-
-                        <Input
-                          placeholder="8AM-10AM, 2PM-4PM"
-                          className="rounded-2xl"
-                        />
-
+                      <TextField defaultValue={slots} name="available_slots" isRequired>
+                        <Label>Available Slots</Label>
+                        <Input placeholder="8AM-10AM, 2PM-4PM" className="rounded-2xl" />
                         <FieldError />
                       </TextField>
                     </div>
 
-                    {/* Image URL */}
                     <div className="md:col-span-2">
-                      <TextField
-                        defaultValue={imageUrl}
-                        name="imageUrl"
-                        isRequired
-                      >
+                      <TextField defaultValue={imageUrl} name="imageUrl" isRequired>
                         <Label>Image URL</Label>
-
-                        <Input
-                          type="url"
-                          placeholder="https://example.com/image.jpg"
-                          className="rounded-2xl"
-                        />
-
+                        <Input type="url" placeholder="https://example.com/image.jpg" className="rounded-2xl" />
                         <FieldError />
                       </TextField>
                     </div>
 
-                    {/* Description */}
                     <div className="md:col-span-2">
-                      <TextField
-                        defaultValue={description}
-                        name="description"
-                        isRequired
-                      >
+                      <TextField defaultValue={description} name="description" isRequired>
                         <Label>Description</Label>
-
-                        <TextArea
-                          placeholder="Describe the facility..."
-                          className="rounded-3xl"
-                        />
-
+                        <TextArea placeholder="Describe the facility..." className="rounded-3xl" />
                         <FieldError />
                       </TextField>
                     </div>
@@ -246,14 +150,10 @@ export function EditModal({ facility }) {
                   </div>
 
                   <Modal.Footer>
-                    <Button
-                      type="submit"
-                      slot="close"
-                    >
+                    <Button type="submit">
                       Save Changes
                     </Button>
                   </Modal.Footer>
-
                 </form>
               </Surface>
             </Modal.Body>

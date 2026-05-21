@@ -5,47 +5,47 @@ import { AlertDialog, Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-export function DeleteAlert({ facility }) {
+export function DeleteAlert({ facility, email }) {
   const router = useRouter();
 
   const { _id, name } = facility;
 
   const handleDelete = async () => {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${_id}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities/${_id}?email=${email}`,
       {
         method: "DELETE",
         headers: {
           "content-type": "application/json",
         },
-        credentials: "include",
       }
     );
 
     const data = await res.json();
 
-    console.log(data);
+    console.log("Delete response:", data);
 
-    if (data.deletedCount > 0) {
-      toast.success("Facility Deleted!");
-      router.push("/all-facilities");
-      router.refresh();
+    if (!res.ok || data.deletedCount === 0) {
+      toast.error(data?.message || "Delete failed!");
+      return;
     }
+
+    toast.success("Facility deleted!");
+
+    router.refresh();
   };
 
   return (
     <AlertDialog>
-      <Button
-        className={"text-red-500 rounded-none"}
-        variant="outline"
-      >
-        <TrashBin /> Delete
-      </Button>
+      <AlertDialog.Trigger>
+        <Button className="text-red-500 rounded-none" variant="outline">
+          <TrashBin /> Delete
+        </Button>
+      </AlertDialog.Trigger>
 
       <AlertDialog.Backdrop>
         <AlertDialog.Container>
           <AlertDialog.Dialog className="sm:max-w-[400px]">
-
             <AlertDialog.CloseTrigger />
 
             <AlertDialog.Header>
@@ -58,17 +58,13 @@ export function DeleteAlert({ facility }) {
 
             <AlertDialog.Body>
               <p>
-                This will permanently delete{" "}
-                <strong>{name}</strong> and all of its
-                data. This action cannot be undone.
+                This will permanently delete <strong>{name}</strong> and all
+                of its data. This action cannot be undone.
               </p>
             </AlertDialog.Body>
 
             <AlertDialog.Footer>
-              <Button
-                slot="close"
-                variant="tertiary"
-              >
+              <Button slot="close" variant="tertiary">
                 Cancel
               </Button>
 
@@ -80,7 +76,6 @@ export function DeleteAlert({ facility }) {
                 Delete
               </Button>
             </AlertDialog.Footer>
-
           </AlertDialog.Dialog>
         </AlertDialog.Container>
       </AlertDialog.Backdrop>

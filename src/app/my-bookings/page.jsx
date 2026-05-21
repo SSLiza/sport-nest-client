@@ -32,6 +32,14 @@ if (!res.ok) {
 
 const bookings = await res.json();
 
+if (!bookings || bookings.length === 0) {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <h1 className="text-xl font-semibold text-gray-500">No bookings found</h1>
+    </div>
+  );
+}
+
   return (
     <div className="max-w-6xl mx-auto py-10 px-5">
 

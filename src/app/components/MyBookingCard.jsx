@@ -1,7 +1,7 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
-import { toast } from "@heroui/react";
+import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 const MyBookingCard = ({ bookings }) => {

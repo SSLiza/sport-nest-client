@@ -19,12 +19,18 @@ const AddFacilityPage = () => {
 
         })
         const data = await res.json();
-        console.log("Response from server:", data);
+        if (res.ok) {
+            toast.success("Facility added successfully!"); 
+            e.target.reset();                              
+            router.push('/manage-facilities');     
+        } else {
+            toast.error(data?.message || "Failed to add facility!"); 
+        }
     }
     return (
-        <div className='mx-auto'>
+<div className='max-w-3xl mx-auto px-4'>
             <h1 className="text-3xl font-bold text-center mb-8">Add New Facility</h1>
-            <form className="p-10 space-y-8 w-3xl" onSubmit={onSubmit}>
+            <form className="py-10 px-4 md:px-10 space-y-8 w-full" onSubmit={onSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
 
                     {/* Facility Name */}
