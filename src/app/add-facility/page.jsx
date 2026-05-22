@@ -8,22 +8,21 @@ const AddFacilityPage = () => {
         e.preventDefault();
         // Handle form submission logic here
         const formData = new FormData(e.target);
-        const destination = Object.fromEntries(formData.entries());
-        console.log("Form Data:", destination);
+        const facilities = Object.fromEntries(formData.entries());
+        console.log("Form Data:", facilities);
 
         const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(destination),
+            body: JSON.stringify(facilities),
 
         })
         const data = await res.json();
         if (res.ok) {
             toast.success("Facility added successfully!"); 
-            e.target.reset();                              
-            router.push('/manage-facilities');     
+            e.target.reset();     
         } else {
             toast.error(data?.message || "Failed to add facility!"); 
         }
@@ -92,6 +91,10 @@ const AddFacilityPage = () => {
                                         Gym
                                         <ListBox.ItemIndicator />
                                     </ListBox.Item>
+                                    <ListBox.Item id="others" textValue="Others">
+                                        Others
+                                        <ListBox.ItemIndicator />
+                                    </ListBox.Item>
                                 </ListBox>
                             </Select.Popover>
                         </Select>
@@ -124,6 +127,7 @@ const AddFacilityPage = () => {
                         <Label>Price Per Hour ($)</Label>
                         <Input
                             type="number"
+                            min="0"
                             placeholder="50"
                             className="rounded-2xl"
                         />
@@ -135,6 +139,7 @@ const AddFacilityPage = () => {
                         <Label>Capacity</Label>
                         <Input
                             type="number"
+                            min="0"
                             placeholder="22"
                             className="rounded-2xl"
                         />
@@ -171,6 +176,7 @@ const AddFacilityPage = () => {
                         <Label>Booking Count</Label>
                         <Input
                             type="number"
+                            min="0"
                             placeholder="0"
                             className="rounded-2xl"
                         />

@@ -160,7 +160,7 @@ const BookingCard = ({ facility, session }) => {
 
         <button
           type="submit"
-          className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-3 rounded-xl font-semibold transition"
+          className="w-full bg-[#03497F] hover:bg-cyan-600 text-white py-3 rounded-xl font-semibold transition"
         >
           Confirm Booking
         </button>

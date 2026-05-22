@@ -26,7 +26,6 @@ const FacilityCard = ({ facility }) => {
 
       {/* Image */}
       <div className="relative h-60 w-full">
-        {/* <h2>{facility._id}</h2> */}
 
         <Image
           src={imageUrl}
@@ -91,7 +90,7 @@ const FacilityCard = ({ facility }) => {
 
           <Link
             href={`/all-facilities/${facility._id}`}
-            className="bg-cyan-500 hover:bg-cyan-600 text-white px-5 py-2 rounded-xl transition"
+            className="bg-[#03497F] hover:bg-cyan-600 text-white px-5 py-2 rounded-xl transition"
           >
             View Details
           </Link>

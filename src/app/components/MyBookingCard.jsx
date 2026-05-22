@@ -3,39 +3,54 @@
 import { authClient } from "@/lib/auth-client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const MyBookingCard = ({ bookings }) => {
   const router = useRouter();
 
+  const [openModal, setOpenModal] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
+
   const handleCancel = async (id) => {
-    const confirmDelete = confirm("Cancel this booking?");
-    if (!confirmDelete) return;
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_SERVER_URL;
 
-    const { data: tokenData } = await authClient.token()
+      if (!baseUrl) {
+        toast.error("Server URL missing");
+        return;
+      }
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${id}`,
-      {
+      const tokenData = await authClient.token?.();
+      const token = tokenData?.token || tokenData?.data?.token;
+
+      if (!token) {
+        toast.error("Login expired. Please login again.");
+        return;
+      }
+
+      const res = await fetch(`${baseUrl}/bookings/${id}`, {
         method: "DELETE",
         headers: {
-          "content-type": "application/json",
-          authorization: `Bearer ${tokenData?.token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        toast.error(data?.message || "Delete failed");
+        return;
       }
-    );
 
-    const data = await res.json();
-
-   if (!res.ok) {
-      toast.error(data?.message || "Action failed!");
-      return;
-    }
-
-   if (data.deletedCount > 0) {
       toast.success("Booking cancelled!");
+
+      setOpenModal(false);
+      setSelectedId(null);
+
       router.refresh();
-    } else {
-      toast.error("Booking not found or already cancelled.");
+    } catch (err) {
+      console.error(err);
+      toast.error("Network error");
     }
   };
 
@@ -81,7 +96,10 @@ const MyBookingCard = ({ bookings }) => {
             </span>
 
             <button
-              onClick={() => handleCancel(booking._id)}
+              onClick={() => {
+                setSelectedId(booking._id);
+                setOpenModal(true);
+              }}
               className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-xl transition"
             >
               Cancel Booking
@@ -89,6 +107,40 @@ const MyBookingCard = ({ bookings }) => {
           </div>
         </div>
       ))}
+
+      {openModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white rounded-2xl p-6 w-[90%] max-w-md shadow-lg">
+
+            <h2 className="text-xl font-bold mb-3">
+              Cancel Booking?
+            </h2>
+
+            <p className="text-gray-600 mb-6">
+              Are you sure you want to cancel this booking? This action cannot be undone.
+            </p>
+
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => {
+                  setOpenModal(false);
+                  setSelectedId(null);
+                }}
+                className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+              >
+                No
+              </button>
+
+              <button
+                onClick={() => handleCancel(selectedId)}
+                className="px-4 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white"
+              >
+                Yes, Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

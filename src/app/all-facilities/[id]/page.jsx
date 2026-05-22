@@ -1,9 +1,40 @@
 import BookingCard from "@/app/components/BookingCard";
-import { DeleteAlert } from "@/app/components/DeleteAlert";
-import { EditModal } from "@/app/components/EditModal";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Image from "next/image";
+
+export const metadata = {
+  title: "Facility Details | SportNest",
+  
+  description:
+    "View premium sports facility details, available slots, pricing, and booking information on SportNest.",
+
+  keywords: [
+    "sports facility",
+    "football turf",
+    "cricket ground",
+    "badminton court",
+    "SportNest",
+  ],
+
+  openGraph: {
+    title: "Facility Details | SportNest",
+
+    description:
+      "Explore sports facilities across Bangladesh with SportNest.",
+
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "SportNest",
+      },
+    ],
+
+    type: "website",
+  },
+};
 
 const FacilityDetailsPage = async ({ params }) => {
     const { id } = await params;
@@ -49,13 +80,9 @@ const FacilityDetailsPage = async ({ params }) => {
             ? [available_slots]
             : [];
 
-    console.log("available_slots:", available_slots);
-    console.log("type:", typeof available_slots);
-    console.log("isArray:", Array.isArray(available_slots));
-
     return (
         <div className="flex flex-col md:flex-row justify-between px-5 py-10 mx-auto gap-10">
-            <section className="max-w-5xl ">
+            <section className="max-w-7xl mx-auto">
                 {/* Image */}
                 <div className="relative w-full h-[500px] rounded-3xl overflow-hidden">
                     {imageUrl ? (
@@ -72,8 +99,8 @@ const FacilityDetailsPage = async ({ params }) => {
                         </div>
                     )}
 
-                    <div className="absolute top-5 right-5 bg-cyan-500 text-white px-5 py-2 rounded-full font-semibold">
-                        ${price_per_hour}/hour
+                    <div className="absolute top-5 right-5 bg-[#03497F] text-white px-5 py-2 rounded-full font-semibold">
+                        ৳{price_per_hour.toLocaleString()}/hour
                     </div>
                 </div>
 

@@ -61,8 +61,8 @@ export default function Home() {
           </Link>
         </div>
       </section>
-      <CommunityHighlights/>
       <WhyChooseSportNest/>
+      <CommunityHighlights/>
     </div>
   );
 }

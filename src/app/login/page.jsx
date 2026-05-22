@@ -28,6 +28,8 @@ const LoginPage = () => {
     });
 
     if (data) {
+
+      toast.success("Login Successful!");
       redirect("/");
     }
 

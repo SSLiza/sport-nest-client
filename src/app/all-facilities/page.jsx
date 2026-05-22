@@ -1,6 +1,23 @@
 export const dynamic = "force-dynamic";
 
 import FacilityCard from "../components/FacilityCard";
+import FacilitySearchForm from "../components/FacilitySearchForm";
+
+export async function generateMetadata({ searchParams }) {
+  const params = await searchParams;
+  const sport = params?.sport || "";
+  const search = params?.search || "";
+
+  return {
+    title: sport
+      ? `${sport} Facilities in Bangladesh`
+      : "All Sports Facilities in Bangladesh",
+    description:
+      search
+        ? `Showing results for "${search}" — browse premium sports facilities across Bangladesh.`
+        : "Discover and book premium sports facilities across Bangladesh. Football, Cricket, Badminton, Tennis and more.",
+  };
+}
 
 const AllfacilitiesPage = async ({ searchParams }) => {
   let facilities = [];
@@ -54,38 +71,12 @@ const AllfacilitiesPage = async ({ searchParams }) => {
       </div>
 
       {/* Search + Filter */}
-      <form className="flex flex-col md:flex-row gap-4 mb-12">
-        
-        {/* Search */}
-        <input
-          type="text"
-          name="search"
-          placeholder="Search facility name..."
-          defaultValue={search}
-          className="border border-gray-300 px-4 py-3 rounded-xl w-full"
+      <div className="mb-12">
+        <FacilitySearchForm
+          defaultSearch={search}
+          defaultSport={sport}
         />
-
-        {/* Filter */}
-        <select
-          name="sport"
-          defaultValue={sport}
-          className="border border-gray-300 px-4 py-3 rounded-xl"
-        >
-          <option value="">All Sports</option>
-          <option value="Football">Football</option>
-          <option value="Cricket">Cricket</option>
-          <option value="Badminton">Badminton</option>
-          <option value="Tennis">Tennis</option>
-        </select>
-
-        {/* Button */}
-        <button
-          type="submit"
-          className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 py-3 rounded-xl"
-        >
-          Search
-        </button>
-      </form>
+      </div>
 
       {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
