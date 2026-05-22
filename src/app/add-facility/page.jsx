@@ -1,34 +1,54 @@
 'use client'
-import { Button, FieldError, Input, Label, ListBox, TextArea, TextField, Select } from '@heroui/react';
+import { useSession } from '@/lib/auth-client';
+import { Button, FieldError, Input, Label, TextArea, TextField } from '@heroui/react';
 import React from 'react';
 import { toast } from 'react-toastify';
 
 const AddFacilityPage = () => {
+    const { data: session } = useSession();
     const onSubmit = async (e) => {
         e.preventDefault();
-        // Handle form submission logic here
+
         const formData = new FormData(e.target);
-        const facilities = Object.fromEntries(formData.entries());
-        console.log("Form Data:", facilities);
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/facilities`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(facilities),
+        const formEntries = Object.fromEntries(formData.entries());
 
-        })
-        const data = await res.json();
-        if (res.ok) {
-            toast.success("Facility added successfully!"); 
-            e.target.reset();     
-        } else {
-            toast.error(data?.message || "Failed to add facility!"); 
+        const facilities = {
+            ...formEntries,
+            price_per_hour: Number(formEntries.price_per_hour),
+            capacity: Number(formEntries.capacity),
+            booking_count: Number(formEntries.booking_count || 0),
+            owner_email: session?.user?.email,
+            createdAt: new Date().toISOString(),
+        };
+
+        try {
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_SERVER_URL}/facilities`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(facilities),
+                }
+            );
+
+            const data = await res.json();
+
+            if (res.ok) {
+                toast.success("Facility added successfully!");
+                e.target.reset();
+            } else {
+                toast.error(data?.message || "Failed to add facility!");
+            }
+        } catch (error) {
+            toast.error("Something went wrong!");
+            console.error(error);
         }
-    }
+    };
     return (
-<div className='max-w-3xl mx-auto px-4'>
+        <div className='max-w-3xl mx-auto px-4'>
             <h1 className="text-3xl font-bold text-center mb-8">Add New Facility</h1>
             <form className="py-10 px-4 md:px-10 space-y-8 w-full" onSubmit={onSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -47,57 +67,26 @@ const AddFacilityPage = () => {
 
                     {/* Facility Type */}
                     <div>
-                        <Select
-                            name="facility_type"
-                            isRequired
-                            className="w-full"
-                            placeholder="Select facility type"
-                        >
-                            <Label>Facility Type</Label>
+                        <div>
+                            <label className="block mb-2 font-medium">
+                                Facility Type
+                            </label>
 
-                            <Select.Trigger className="rounded-2xl">
-                                <Select.Value />
-                                <Select.Indicator />
-                            </Select.Trigger>
-
-                            <Select.Popover>
-                                <ListBox>
-                                    <ListBox.Item id="Football" textValue="Football">
-                                        Football
-                                        <ListBox.ItemIndicator />
-                                    </ListBox.Item>
-
-                                    <ListBox.Item id="Cricket" textValue="Cricket">
-                                        Cricket
-                                        <ListBox.ItemIndicator />
-                                    </ListBox.Item>
-
-                                    <ListBox.Item id="Basketball" textValue="Basketball">
-                                        Basketball
-                                        <ListBox.ItemIndicator />
-                                    </ListBox.Item>
-
-                                    <ListBox.Item id="Badminton" textValue="Badminton">
-                                        Badminton
-                                        <ListBox.ItemIndicator />
-                                    </ListBox.Item>
-
-                                    <ListBox.Item id="Swimming" textValue="Swimming">
-                                        Swimming
-                                        <ListBox.ItemIndicator />
-                                    </ListBox.Item>
-
-                                    <ListBox.Item id="Gym" textValue="Gym">
-                                        Gym
-                                        <ListBox.ItemIndicator />
-                                    </ListBox.Item>
-                                    <ListBox.Item id="others" textValue="Others">
-                                        Others
-                                        <ListBox.ItemIndicator />
-                                    </ListBox.Item>
-                                </ListBox>
-                            </Select.Popover>
-                        </Select>
+                            <select
+                                name="facility_type"
+                                required
+                                className="w-full border rounded-2xl px-4 py-3"
+                            >
+                                <option value="">Select Facility Type</option>
+                                <option value="Football">Football</option>
+                                <option value="Cricket">Cricket</option>
+                                <option value="Basketball">Basketball</option>
+                                <option value="Badminton">Badminton</option>
+                                <option value="Swimming">Swimming</option>
+                                <option value="Gym">Gym</option>
+                                <option value="Others">Others</option>
+                            </select>
+                        </div>
                     </div>
                     {/* Image URL */}
                     <div className="md:col-span-2">
@@ -164,7 +153,8 @@ const AddFacilityPage = () => {
                             <Label>Owner Email</Label>
                             <Input
                                 type="email"
-                                placeholder="owner@example.com"
+                                value={session?.user?.email || ""}
+                                isReadOnly
                                 className="rounded-2xl"
                             />
                             <FieldError />
